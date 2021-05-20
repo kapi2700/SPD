@@ -444,7 +444,7 @@ void INSA_alg()
                     if (wylicz(sprawdzana1) < wylicz(sprawdzana2))
                     {
                         a = sprawdzana1.pi;
-                        teraz = l;
+                        teraz = l + 1;
                     }
                 }
             }
