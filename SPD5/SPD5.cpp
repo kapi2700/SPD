@@ -54,11 +54,11 @@ void generuj()
 {
     RandomNumberGenerator generator(inst.seed);
     vector<int> pom;        //zmienna wykorzystywana przy pushback, do instancji
-    int x = floor(inst.m * 1.2);
+    int x = floor((float)inst.m * 1.2);
 
     for (int i = 0; i < inst.n; i++)
     {
-        inst.o.push_back(generator.nextInt(1, x));
+        inst.o.push_back(generator.nextInt(1, (int)x) + 1);
         for (int j = 0; j < inst.o[i]; j++)
         {
             pom.push_back(generator.nextInt(1, 29));
@@ -430,16 +430,17 @@ void INSA_alg()
         {
             akt_miejsce = j;
 
-            a.push_back(pi2[akt_zad][akt_miejsce]);
-            teraz = a.size() - 1;
-            for (int l = wczesniej + 1; l < a.size() - 1; l++) //sprawdzamy od miejsca jeden za ustalon¹ pozycj¹ poprzedniej operacji, z tego samego zadania
+            //a.push_back(pi2[akt_zad][akt_miejsce]);
+            a.insert(a.begin() + (1 + wczesniej), pi2[akt_zad][akt_miejsce]);
+            teraz = wczesniej + 1;
+            for (int l = wczesniej + 2; l < a.size() - 1; l++) //sprawdzamy od miejsca jeden za ustalon¹ pozycj¹ poprzedniej operacji, z tego samego zadania
             {
                 sprawdzana1.pi = a;
                 sprawdzana2.pi = a;
                 if (maszyna[l] == maszyna[teraz])
                 {
                     sprawdzana1.pi.erase(sprawdzana1.pi.begin() + teraz);
-                    sprawdzana1.pi.insert(sprawdzana1.pi.begin() + l, pi2[akt_zad][akt_miejsce]);
+                    sprawdzana1.pi.insert(sprawdzana1.pi.begin() + l + 1, pi2[akt_zad][akt_miejsce]);
                     if (wylicz(sprawdzana1) < wylicz(sprawdzana2))
                     {
                         a = sprawdzana1.pi;
